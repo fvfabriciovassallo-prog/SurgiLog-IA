@@ -12,7 +12,8 @@ import {
   Hash,
   Stethoscope,
   Phone,
-  Check
+  Check,
+  Trash2
 } from 'lucide-react';
 
 import { ImageUpload } from './components/ImageUpload';
@@ -132,6 +133,13 @@ function App() {
     setImageBase64(null);
     setError(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleDeleteRecord = (id: string) => {
+    // Immediate deletion without confirmation as requested
+    setSavedRecords(prev => prev.filter(r => r.id !== id));
+    // Optional: Clear error/status message or show a small transient feedback if needed
+    setError(null); 
   };
 
   const handleExportCSV = () => {
@@ -416,12 +424,13 @@ function App() {
                   <th className="px-6 py-3">Región</th>
                   <th className="px-6 py-3">Detalles</th>
                   <th className="px-6 py-3">Descripción</th>
+                  <th className="px-6 py-3 text-right">Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 {savedRecords.length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="px-6 py-8 text-center text-gray-400">
+                    <td colSpan={8} className="px-6 py-8 text-center text-gray-400">
                       No hay registros guardados aún.
                     </td>
                   </tr>
@@ -453,6 +462,16 @@ function App() {
                       </td>
                       <td className="px-6 py-4 max-w-xs truncate" title={record.intervention?.description}>
                         {record.intervention?.description}
+                      </td>
+                      <td className="px-6 py-4 text-right">
+                        <Button 
+                          variant="ghost" 
+                          onClick={() => handleDeleteRecord(record.id)}
+                          className="text-red-500 hover:text-red-700 hover:bg-red-50 p-2 h-auto"
+                          title="Eliminar registro"
+                        >
+                          <Trash2 size={18} />
+                        </Button>
                       </td>
                     </tr>
                   ))
