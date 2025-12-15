@@ -1,0 +1,7 @@
+{
+  "name": "SurgiLog AI",
+  "description": "Herramienta inteligente para el registro de intervenciones quirúrgicas con extracción de datos OCR y transcripción de voz.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
