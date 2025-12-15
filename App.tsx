@@ -18,13 +18,10 @@ import {
 import { ImageUpload } from './components/ImageUpload';
 import { AudioRecorder } from './components/AudioRecorder';
 import { Button } from './components/Button';
-import { BiometricAuth } from './components/BiometricAuth';
 import { extractPatientDataFromImage, processInterventionAudio } from './services/geminiService';
 import { PatientRecord, BodyRegion, SurgicalIntervention } from './types';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
   // Initialize with current date as per requirements
   const [currentRecord, setCurrentRecord] = useState<Partial<PatientRecord>>({
     date: new Date().toISOString().split('T')[0]
@@ -166,15 +163,8 @@ function App() {
     document.body.removeChild(link);
   };
 
-  // ----------------------------------------------------------------------
-  // Auth Check
-  // ----------------------------------------------------------------------
-  if (!isAuthenticated) {
-    return <BiometricAuth onAuthenticated={() => setIsAuthenticated(true)} />;
-  }
-
   return (
-    <div className="min-h-screen bg-slate-50 pb-20 animate-in fade-in duration-700">
+    <div className="min-h-screen bg-slate-50 pb-20">
       {/* Header */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
